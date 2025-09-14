@@ -1,1 +1,26 @@
-<p>details works!</p>
+@if(detailsPokemon.isLoading())
+{
+    <p>Loading...</p>
+}
+@else if (detailsPokemon.error())
+{
+    <p>Error loading pokemon</p>
+}
+@else {
+    @if (detailsPokemon.value(); as pokemon) {
+        <div class="poke-details">
+            <img width="200"
+            height="200"
+             [ngSrc]="pokemon.sprites.front_default"
+              [alt]="name() |titlecase">
+        <h1 class="title">{{name()}}</h1>
+        <div>
+            @for (type of pokemon.types; track type) {
+                <span class="type-badge">{{type.type.name |titlecase}}</span>
+            }
+        </div>
+        <a class="back-link" routerLink="/">Back to pokemon list</a>
+        </div>
+    }
+}
+
